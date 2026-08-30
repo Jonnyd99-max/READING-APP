@@ -5,6 +5,63 @@ const stories = {
   dinosaur: {theme:'Dinosaur Island',title:'The Secret Jungle Egg',scene:['🌋','🥚','🦖'],start:'Zuri pushed through the gigantic ferns and found an unusual rainbow egg. Nearby, a gentle dinosaur made a thunderous worried sound.',choices:[{label:'🥚 Protect the egg',text:'Zuri built a shelter from enormous leaves. Soon the egg cracked and a magnificent baby dinosaur peeped out.'},{label:'🔎 Search for its family',text:'Zuri followed some mysterious footprints across the island and discovered a peaceful valley full of dinosaurs.'}]}
 };
 
+Object.assign(stories.princess,{
+  pages:[
+    'The sleepy giant opened one eye. He had lost the silver bell that guided travellers safely through the forest. Amara promised that she and the tiny dragon would help him find it.',
+    'They followed a trail of moon-shaped flowers to a rushing river. Amara listened carefully and heard a faint ringing beneath an old wooden bridge. The dragon lit the dark space with a warm golden flame.',
+    'Amara found the bell caught between two stones. When she returned it, the giant smiled and rang it once. A bridge of moonlight carried everyone home, and Amara knew that courage and kindness made the greatest magic.'
+  ],
+  questions:[
+    {text:'What was glowing beneath the castle stairs?',answer:'A silver door',options:['A silver door','A golden crown','A green boat']},
+    {text:'Who whispered to Amara?',answer:'A tiny dragon',options:['A tiny dragon','A moon fox','A sleepy giant']},
+    {text:'What had the giant lost?',answer:'A silver bell',options:['A silver bell','A castle key','A red scarf']},
+    {text:'Where was the bell caught?',answer:'Between two stones',options:['Between two stones','Inside the castle','High in a tree']},
+    {text:'What helped Amara make the greatest magic?',answer:'Courage and kindness',options:['Courage and kindness','Running very fast','Owning lots of gold']}
+  ]
+});
+Object.assign(stories.sport,{
+  pages:[
+    'The ball reached Kai again as the final minute began. His teammates called to one another and spread across the pitch. Kai remembered that a strong team watches, listens, and works together.',
+    'A defender blocked the goal, so Kai looked up instead of rushing. He saw his teammate Ava in a clear space and sent the ball towards her. Ava controlled it and passed it straight back.',
+    'Kai struck the ball just before the whistle. It flew into the net and the stadium erupted with cheers. Kai thanked his teammates because every pass had helped to create the winning goal.'
+  ],
+  questions:[
+    {text:'What kind of match was Kai playing?',answer:'A championship match',options:['A championship match','A tennis match','A practice race']},
+    {text:'What sparkled beneath the stadium lights?',answer:'His team badge',options:['His team badge','His shoes','The whistle']},
+    {text:'What does a strong team do?',answer:'Watches, listens and works together',options:['Watches, listens and works together','Keeps the ball alone','Stops speaking']},
+    {text:'Who did Kai pass to near the end?',answer:'Ava',options:['Ava','Milo','Amara']},
+    {text:'Why did Kai thank his teammates?',answer:'Every pass helped make the goal',options:['Every pass helped make the goal','They bought him a prize','They changed the rules']}
+  ]
+});
+Object.assign(stories.space,{
+  pages:[
+    'The signal showed Milo a map of a hidden station near Mars. He checked his fuel, fastened his safety belt, and guided the rocket towards a blinking blue light.',
+    'Inside the station, Milo met a friendly robot called Beep. A meteor had damaged the station antenna, so messages could not reach home. Milo used his toolkit while Beep held the light.',
+    'Together they repaired the antenna and sent a clear signal across space. The station crew cheered, and Milo recorded the discovery in his logbook before beginning the long journey home.'
+  ],
+  questions:[
+    {text:'Where was the surprising signal coming from?',answer:'Mars',options:['Mars','The Moon','Earth']},
+    {text:'What did the signal show Milo?',answer:'A map of a hidden station',options:['A map of a hidden station','A football score','A dinosaur egg']},
+    {text:'What was the robot called?',answer:'Beep',options:['Beep','Ava','Spark']},
+    {text:'What had damaged the antenna?',answer:'A meteor',options:['A meteor','A dragon','Heavy rain']},
+    {text:'Where did Milo record the discovery?',answer:'In his logbook',options:['In his logbook','On the wall','Inside his helmet']}
+  ]
+});
+Object.assign(stories.dinosaur,{
+  pages:[
+    'The worried dinosaur was the egg’s mother. Zuri noticed that smoke was rising beyond the trees, and the ground gave a small rumble. They needed to move somewhere safe before the volcano woke.',
+    'Zuri led the dinosaurs towards a peaceful valley beside a wide blue lake. The smallest dinosaurs became tired, so everyone slowed down and stayed together until the whole herd arrived.',
+    'The rainbow egg cracked beneath a shady tree, and a baby dinosaur peeped out. Its mother gave a joyful call. Zuri watched the family settle safely in the valley and promised to visit again.'
+  ],
+  questions:[
+    {text:'What did Zuri find among the ferns?',answer:'A rainbow egg',options:['A rainbow egg','A silver bell','A space helmet']},
+    {text:'Who did the worried dinosaur turn out to be?',answer:"The egg's mother",options:["The egg's mother",'A friendly robot','A football coach']},
+    {text:'Why did everyone need to move?',answer:'The volcano might wake',options:['The volcano might wake','It was bedtime','The lake was empty']},
+    {text:'Where did Zuri lead the dinosaurs?',answer:'A peaceful valley',options:['A peaceful valley','A busy stadium','A dark castle']},
+    {text:'Why did the herd slow down?',answer:'The smallest dinosaurs were tired',options:['The smallest dinosaurs were tired','They lost the egg','It began to snow']}
+  ]
+});
+
 const phonics={mysterious:'mys–TEER–ee–us',courageous:'kuh–RAY–jus',shimmering:'SHIM–er–ing',enchanted:'en–CHAN–tid',ancient:'AYN–shunt',curious:'KYOOR–ee–us',enormous:'ih–NOR–mus',surprising:'ser–PRY–zing',extraordinary:'ik–STROR–din–air–ee',spectacular:'spek–TAK–yuh–ler',gigantic:'jy–GAN–tik',unusual:'un–YOO–zhoo–ul',thunderous:'THUN–der–us',magnificent:'mag–NIF–ih–sunt',discovered:'dis–KUV–erd',carefully:'KAIR–fuh–lee',peaceful:'PEES–ful',championship:'CHAM–pee–un–ship',defender:'dee–FEN–der'};
 Object.assign(phonics,{
   a:'uh',all:'awl',an:'an',amara:'uh–MAR–uh',and:'and',answered:'AN–serd',appeared:'uh–PEERD',around:'uh–ROUND',as:'az',baby:'BAY–bee',badge:'baj',ball:'bawl',began:'buh–GAN',beneath:'buh–NEETH',bouncing:'BOWN–sing',branches:'BRAN–chiz',built:'bilt',castle:'KAS–ul',checked:'chekt',cheer:'cheer',clouds:'klowdz',controls:'kun–TROHLZ',corner:'KOR–ner',counted:'KOWN–tid',crowd:'krowd',cracked:'krakt',curved:'kurvd',dinosaur:'DYE–nuh–sor',dinosaurs:'DYE–nuh–sorz',door:'dor',down:'down',dragon:'DRAG–un',dust:'dust',egg:'eg',family:'FAM–uh–lee',fastened:'FAS–und',ferns:'furnz',final:'FYE–nul',finding:'FYN–ding',flashing:'FLASH–ing',floated:'FLOH–tid',followed:'FOL–ohd',footprints:'FOOT–prints',for:'for',forward:'FOR–werd',found:'fownd',fox:'foks',friendly:'FREND–lee',from:'from',gap:'gap',gentle:'JEN–tul',giant:'JYE–unt',glowing:'GLOH–ing',gravity:'GRAV–uh–tee',heard:'hurd',helmet:'HEL–mit',help:'help',her:'hur',hidden:'HID–un',him:'him',his:'hiz',hummed:'humd',into:'IN–too',invited:'in–VYE–tid',is:'iz',island:'EYE–lund',its:'its',kai:'kye',key:'kee',kick:'kik',leaves:'leevz',lights:'lyts',made:'mayd',mars:'marz',match:'mach',meteor:'MEE–tee–or',milo:'MY–loh',moon:'moon',moonlight:'MOON–lyt',moved:'moovd',nearby:'NEER–bye',needed:'NEE–did',on:'on',one:'wun',out:'owt',pass:'pas',path:'path',peeped:'peept',pointed:'POYN–tid',princess:'PRIN–sess',pushed:'poosht',race:'rays',raced:'rayst',rainbow:'RAYN–boh',red:'red',robot:'ROH–bot',rocket:'ROK–it',rockets:'ROK–its',screen:'skreen',shelter:'SHEL–ter',shower:'SHOW–er',signal:'SIG–nul',silver:'SIL–ver',sleepy:'SLEE–pee',someone:'SUM–wun',song:'song',soon:'soon',sound:'sownd',space:'spays',sparkled:'SPAR–kuld',sparkling:'SPAR–kling',spotted:'SPOT–id',stairs:'stairz',station:'STAY–shun',stepped:'stept',stadium:'STAY–dee–um',team:'teem',teammate:'TEEM–mayt',the:'thuh',through:'throo',tiny:'TY–nee',to:'too',top:'top',towards:'tuh–WORDZ',turned:'turnd',valley:'VAL–ee',waiting:'WAY–ting',was:'woz',way:'way',where:'wair',while:'wyle',whispered:'WIS–perd',whole:'hohl',with:'with',worried:'WUR–eed',zero:'ZEER–oh',zoomed:'zoomd',zuri:'ZOO–ree'
@@ -24,7 +81,7 @@ const state={
   streak:lastCompleted===today||lastCompleted===yesterday?savedStreak:0,lastCompleted,
   profile:localStorage.getItem('meehee-profile')||'princess', current:null
 };
-const storyModal=document.querySelector('#story-modal'),panelModal=document.querySelector('#panel-modal'),storyText=document.querySelector('#story-text'),choices=document.querySelector('#choice-area');
+const storyModal=document.querySelector('#story-modal'),panelModal=document.querySelector('#panel-modal'),storyText=document.querySelector('#story-text'),choices=document.querySelector('#choice-area');let storyRun=null;
 
 function formatTime(seconds){const mins=Math.floor(seconds/60);return `${mins}:${String(seconds%60).padStart(2,'0')}`}
 function updateTimer(){
@@ -54,8 +111,13 @@ function wordify(text){return text.split(/(\s+)/).map(part=>{const clean=part.to
 function bindWords(){storyText.querySelectorAll('.word').forEach(button=>button.addEventListener('click',()=>helpWord(button.dataset.word,button)))}
 function speak(word,slow=false){if(!('speechSynthesis'in window))return;speechSynthesis.cancel();const voice=new SpeechSynthesisUtterance(word);voice.rate=slow?.55:.82;voice.pitch=1.05;speechSynthesis.speak(voice)}
 function helpWord(word,button){if(!state.words.includes(word)){state.words.push(word);button.classList.add('learned');state.stars+=2;save()}document.querySelector('.phonics-pop')?.remove();const pop=document.createElement('div');pop.className='phonics-pop';pop.innerHTML=`<span>🔊</span><div><small>Sound it out</small><br><strong>${getPhonics(word)}</strong></div><button>Hear “${word}” slowly</button>`;pop.querySelector('button').addEventListener('click',()=>speak(word,true));storyText.after(pop);speak(word)}
-function openStory(key){const story=stories[key];state.current=key;document.querySelector('#story-theme').textContent=story.theme;document.querySelector('#story-title').textContent=story.title;document.querySelector('#story-scene').innerHTML=story.scene.map(x=>`<span aria-hidden="true">${x}</span>`).join('');storyText.innerHTML=wordify(story.start);choices.innerHTML=`<p>What should happen next?</p>${story.choices.map((c,i)=>`<button class="choice" data-choice="${i}">${c.label}</button>`).join('')}`;choices.querySelectorAll('.choice').forEach(b=>b.addEventListener('click',()=>continueStory(Number(b.dataset.choice))));bindWords();openModal(storyModal)}
-function continueStory(index){const ending=stories[state.current].choices[index];storyText.innerHTML=wordify(ending.text);bindWords();choices.innerHTML='<p>Brilliant choice! You changed the story.</p><button class="choice finish">Finish story and collect 20 stars ⭐</button>';choices.querySelector('.finish').addEventListener('click',finishStory)}
+function pageLabel(page){document.querySelector('#story-theme').textContent=`${stories[state.current].theme} · Page ${page} of 5`}
+function openStory(key){const story=stories[key];state.current=key;storyRun={page:1,choice:null,answers:[],score:0};document.querySelector('#story-title').textContent=story.title;document.querySelector('#story-scene').innerHTML=story.scene.map(x=>`<span aria-hidden="true">${x}</span>`).join('');renderStoryPage();openModal(storyModal)}
+function renderStoryPage(){const story=stories[state.current],page=storyRun.page;pageLabel(page);document.querySelector('.phonics-pop')?.remove();const text=page===1?story.start:page===2?story.choices[storyRun.choice].text:story.pages[page-3];storyText.innerHTML=wordify(text);bindWords();if(page===1){choices.innerHTML=`<p>What should happen next?</p>${story.choices.map((c,i)=>`<button class="choice" data-choice="${i}">${c.label}</button>`).join('')}`;choices.querySelectorAll('[data-choice]').forEach(b=>b.addEventListener('click',()=>{storyRun.choice=Number(b.dataset.choice);storyRun.page=2;renderStoryPage()}))}else{const last=page===5;choices.innerHTML=`<p>${last?'You finished the story. Now show what you remember!':'Great reading — ready for the next page?'}</p><button class="choice finish" id="story-next">${last?'Answer 5 questions 🧠':'Next page →'}</button>`;document.querySelector('#story-next').addEventListener('click',()=>{if(last)startStoryQuestions();else{storyRun.page++;renderStoryPage()}})}}
+function startStoryQuestions(){storyRun.answers=[];storyRun.score=0;renderStoryQuestion(0)}
+function renderStoryQuestion(index){const story=stories[state.current],question=story.questions[index];document.querySelector('#story-theme').textContent=`Memory check · Question ${index+1} of 5`;storyText.innerHTML=`<strong>${question.text}</strong>`;choices.innerHTML=`<button class="choice finish" id="hear-question">🔊 Read question aloud</button>${question.options.map(option=>`<button class="choice" data-answer="${option}">${option}</button>`).join('')}<p id="question-feedback" aria-live="polite"></p>`;document.querySelector('#hear-question').addEventListener('click',()=>speak(question.text,true));choices.querySelectorAll('[data-answer]').forEach(button=>button.addEventListener('click',()=>answerStoryQuestion(index,button.dataset.answer)))}
+function answerStoryQuestion(index,answer){const question=stories[state.current].questions[index],correct=answer===question.answer;if(correct)storyRun.score++;storyRun.answers.push(answer);choices.querySelectorAll('button').forEach(button=>button.disabled=true);document.querySelector('#question-feedback').textContent=correct?'Correct! Brilliant remembering. ⭐':`Good try. The answer was “${question.answer}”.`;setTimeout(()=>index<4?renderStoryQuestion(index+1):finishStoryQuestions(),900)}
+function finishStoryQuestions(){if(storyRun.score>=4){storyText.innerHTML=`<strong>Fantastic! You scored ${storyRun.score} out of 5.</strong>`;choices.innerHTML='<p>You remembered the story and earned your reward.</p><button class="choice finish" id="collect-story-stars">Collect 20 stars ⭐</button>';document.querySelector('#collect-story-stars').addEventListener('click',finishStory)}else{storyText.innerHTML=`<strong>You scored ${storyRun.score} out of 5.</strong>`;choices.innerHTML='<p>You need 4 correct answers. Read the story again, then have another try — you can do it!</p><button class="choice finish" id="reread-story">Read the story again 📖</button>';document.querySelector('#reread-story').addEventListener('click',()=>{storyRun={page:1,choice:null,answers:[],score:0};renderStoryPage()})}}
 function finishStory(){state.stars+=20;state.stories+=1;save();closeModals();showPanel('words')}
 document.querySelectorAll('.story-card').forEach(card=>card.querySelector('button').addEventListener('click',()=>openStory(card.dataset.story)));document.querySelector('#start-story').addEventListener('click',()=>document.querySelector('.stories').scrollIntoView({behavior:'smooth'}));
 
