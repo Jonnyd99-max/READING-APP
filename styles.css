@@ -44,6 +44,7 @@ h1 span { color:var(--purple); position:relative; }
 .story-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px; }
 .story-card { min-height:340px;border-radius:28px;overflow:hidden;position:relative;color:white;display:flex;align-items:end;box-shadow:0 12px 30px rgba(42,36,91,.14);transition:.2s; }
 .story-card:hover { transform:translateY(-7px) rotate(.5deg); }
+.story-complete{position:absolute;right:16px;top:16px;z-index:3;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#22a862;color:white;border:3px solid white;box-shadow:0 5px 14px rgba(20,90,55,.3);font-size:24px;font-weight:900}
 .story-card.purple{background:linear-gradient(#aa8cff,#7050df)}.story-card.blue{background:linear-gradient(#69cef4,#3479d4)}.story-card.green{background:linear-gradient(#70dca2,#27936b)}
 .story-emoji { position:absolute;inset:6px 0 auto;text-align:center;font-size:125px;filter:drop-shadow(0 8px 0 rgba(0,0,0,.1)); }
 .story-info { width:100%;padding:58px 24px 24px;background:linear-gradient(transparent,rgba(25,20,64,.88));position:relative;z-index:2; }
