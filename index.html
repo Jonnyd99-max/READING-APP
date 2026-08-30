@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Help MeeHee Read makes reading a playful adventure for children aged 6 to 9.">
   <title>Help MeeHee Read</title>
-  <link rel="stylesheet" href="styles.css?v=20260830-17">
+  <link rel="stylesheet" href="styles.css?v=20260830-18">
 </head>
 <body>
   <div class="offline-banner" id="offline-banner" hidden>📴 You’re offline. Saved stories still work, but new word definitions may be unavailable.</div>
@@ -52,6 +52,12 @@
       <div class="mission-reward"><strong>+30</strong><span>stars</span></div>
     </section>
 
+    <section class="learning-strip quick-tools" aria-label="My reading tools">
+      <button class="tool-card" data-open="words"><span>🔤</span><strong>My tricky words</strong><small id="word-summary">0 words saved</small></button>
+      <button class="tool-card" data-open="rewards"><span>🏆</span><strong>My rewards</strong><small>See what you can earn</small></button>
+      <button class="tool-card" data-open="achievements"><span>🏅</span><strong>Challenges & badges</strong><small>Complete this week’s missions</small></button>
+    </section>
+
     <section class="stories" aria-labelledby="stories-title">
       <div class="section-heading">
         <div><p class="eyebrow">Pick your world</p><h2 id="stories-title">Choose an adventure</h2></div>
@@ -92,11 +98,8 @@
       </div>
     </section>
 
-    <section class="learning-strip" aria-label="Learning tools">
-      <button class="tool-card" data-open="words"><span>🔤</span><strong>My tricky words</strong><small id="word-summary">0 words saved</small></button>
-      <button class="tool-card" data-open="rewards"><span>🏆</span><strong>My rewards</strong><small>See what you can earn</small></button>
+    <section class="learning-strip support-tools" aria-label="Grown-up and support tools">
       <button class="tool-card" data-open="parents"><span>👨‍👩‍👧</span><strong>Grown-up view</strong><small>Show your progress</small></button>
-      <button class="tool-card" data-open="achievements"><span>🏅</span><strong>Challenges & badges</strong><small>Complete this week’s missions</small></button>
       <button class="tool-card" data-open="support"><span>🛟</span><strong>Help & privacy</strong><small>Troubleshooting and data help</small></button>
     </section>
   </main>
