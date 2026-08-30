@@ -250,7 +250,8 @@ document.querySelector('#view-all-stories').addEventListener('click',showAllStor
 
 function applyProfile(profile){
   state.profile=profile;const sport=profile==='sport';document.body.classList.toggle('sport-mode',sport);
-  document.querySelector('.avatar').textContent=sport?'⚽':'ME';document.querySelector('#hero-icon').textContent=sport?'⚽':'🏰';
+  const activeReader=state.childName||'Reader';document.querySelector('#active-reader-name').textContent=activeReader;
+  document.querySelector('.avatar').textContent=sport?'⚽':'ME';document.querySelector('.avatar').setAttribute('aria-label',`Open ${activeReader}’s profile`);document.querySelector('#hero-icon').textContent=sport?'⚽':'🏰';
   const reader=state.childName?`${state.childName}’s`:'Your';document.querySelector('#hero-eyebrow').textContent=sport?`${reader} next sporting adventure`:`${reader} next reading adventure`;
   document.querySelector('#hero-title').innerHTML=sport?'Ready to <span>read, play and score?</span>':'Where will your <span>imagination</span> take you?';
   document.querySelector('#hero-description').textContent=sport?'Choose a challenge, tap tricky words for help, and make choices that lead your team to victory.':'Choose a story, tap tricky words for help, and make choices that change what happens next.';
