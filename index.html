@@ -23,16 +23,16 @@
   <main id="home">
     <section class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">Your next reading adventure</p>
-        <h1>Where will your <span>imagination</span> take you?</h1>
-        <p>Choose a story, tap tricky words for help, and make choices that change what happens next.</p>
+        <p class="eyebrow" id="hero-eyebrow">Your next reading adventure</p>
+        <h1 id="hero-title">Where will your <span>imagination</span> take you?</h1>
+        <p id="hero-description">Choose a story, tap tricky words for help, and make choices that change what happens next.</p>
         <button class="primary" id="start-story">Start an adventure <span aria-hidden="true">→</span></button>
       </div>
       <div class="hero-art" aria-label="Cartoon floating book world">
         <div class="cloud cloud-one"></div>
         <div class="cloud cloud-two"></div>
         <div class="book-world">
-          <div class="castle" aria-hidden="true">🏰</div>
+          <div class="castle" id="hero-icon" aria-hidden="true">🏰</div>
           <div class="open-book" aria-hidden="true">📖</div>
           <div class="spark s1">✦</div><div class="spark s2">★</div><div class="spark s3">✦</div>
         </div>
@@ -44,8 +44,8 @@
       <div class="mission-copy">
         <p class="eyebrow">Today's mission</p>
         <h2 id="mission-title">Read for 10 minutes</h2>
-        <div class="progress"><span></span></div>
-        <small>4 of 10 minutes</small>
+        <div class="progress"><span id="mission-progress"></span></div>
+        <small id="reading-time">0:00 of 10:00</small>
       </div>
       <div class="mission-reward"><strong>+30</strong><span>stars</span></div>
     </section>
@@ -56,9 +56,9 @@
         <button class="text-button">View all stories →</button>
       </div>
       <div class="story-grid">
-        <article class="story-card purple" data-story="princess">
-          <div class="story-emoji" aria-hidden="true">👸🏾</div>
-          <div class="story-info"><span>Magical Kingdom</span><h3>The Princess and the Moon Door</h3><p>Level 2 · 8 mins</p><button>Play story →</button></div>
+        <article class="story-card purple" id="featured-story" data-story="princess">
+          <div class="story-emoji" id="featured-emoji" aria-hidden="true">👸🏾</div>
+          <div class="story-info"><span id="featured-theme">Magical Kingdom</span><h3 id="featured-title">The Princess and the Moon Door</h3><p>Level 2 · 8 mins</p><button>Play story →</button></div>
         </article>
         <article class="story-card blue" data-story="space">
           <div class="story-emoji" aria-hidden="true">🧑🏽‍🚀</div>
