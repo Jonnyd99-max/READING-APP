@@ -6,12 +6,16 @@ const stories = {
 };
 
 const phonics={mysterious:'mys–TEER–ee–us',courageous:'kuh–RAY–jus',shimmering:'SHIM–er–ing',enchanted:'en–CHAN–tid',ancient:'AYN–shunt',curious:'KYOOR–ee–us',enormous:'ih–NOR–mus',surprising:'ser–PRY–zing',extraordinary:'ik–STROR–din–air–ee',spectacular:'spek–TAK–yuh–ler',gigantic:'jy–GAN–tik',unusual:'un–YOO–zhoo–ul',thunderous:'THUN–der–us',magnificent:'mag–NIF–ih–sunt',discovered:'dis–KUV–erd',carefully:'KAIR–fuh–lee',peaceful:'PEES–ful',championship:'CHAM–pee–un–ship',defender:'dee–FEN–der'};
-const today=new Date().toISOString().slice(0,10);
+function dateKey(date=new Date()){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`}
+const today=dateKey();const yesterdayDate=new Date();yesterdayDate.setDate(yesterdayDate.getDate()-1);const yesterday=dateKey(yesterdayDate);
 const storedDay=localStorage.getItem('meehee-reading-day');
+const savedRewards=JSON.parse(localStorage.getItem('meehee-rewards')||'[]').map(reward=>typeof reward==='string'?{name:reward,cost:100}:reward);
+const lastCompleted=localStorage.getItem('meehee-last-goal-date')||'';const savedStreak=Number(localStorage.getItem('meehee-streak')||0);
 const state={
   stars:Number(localStorage.getItem('meehee-stars')||120), words:JSON.parse(localStorage.getItem('meehee-words')||'[]'),
   stories:Number(localStorage.getItem('meehee-stories')||0), seconds:storedDay===today?Number(localStorage.getItem('meehee-reading-seconds')||0):0,
-  rewarded:storedDay===today&&localStorage.getItem('meehee-mission-rewarded')==='yes', rewards:JSON.parse(localStorage.getItem('meehee-rewards')||'[]'),
+  rewarded:storedDay===today&&localStorage.getItem('meehee-mission-rewarded')==='yes', rewards:savedRewards,
+  streak:lastCompleted===today||lastCompleted===yesterday?savedStreak:0,lastCompleted,
   profile:localStorage.getItem('meehee-profile')||'princess', current:null
 };
 const storyModal=document.querySelector('#story-modal'),panelModal=document.querySelector('#panel-modal'),storyText=document.querySelector('#story-text'),choices=document.querySelector('#choice-area');
@@ -20,13 +24,15 @@ function formatTime(seconds){const mins=Math.floor(seconds/60);return `${mins}:$
 function updateTimer(){
   document.querySelector('#reading-time').textContent=`${formatTime(state.seconds)} of 10:00`;
   document.querySelector('#mission-progress').style.width=`${Math.min(100,state.seconds/6)}%`;
-  if(state.seconds>=600&&!state.rewarded){state.stars+=30;state.rewarded=true;save()}
+  if(state.seconds>=600&&!state.rewarded){state.stars+=30;state.rewarded=true;completeDailyGoal();save()}
 }
+function completeDailyGoal(){if(state.lastCompleted===today)return;state.streak=state.lastCompleted===yesterday?state.streak+1:1;state.lastCompleted=today}
 function save(){
   localStorage.setItem('meehee-stars',state.stars);localStorage.setItem('meehee-words',JSON.stringify(state.words));localStorage.setItem('meehee-stories',state.stories);
   localStorage.setItem('meehee-reading-day',today);localStorage.setItem('meehee-reading-seconds',state.seconds);localStorage.setItem('meehee-mission-rewarded',state.rewarded?'yes':'no');
-  localStorage.setItem('meehee-rewards',JSON.stringify(state.rewards));localStorage.setItem('meehee-profile',state.profile);
+  localStorage.setItem('meehee-rewards',JSON.stringify(state.rewards));localStorage.setItem('meehee-profile',state.profile);localStorage.setItem('meehee-streak',state.streak);localStorage.setItem('meehee-last-goal-date',state.lastCompleted);
   document.querySelector('#star-count').textContent=state.stars;document.querySelector('#reader-stars').textContent=state.stars;document.querySelector('#word-summary').textContent=`${state.words.length} word${state.words.length===1?'':'s'} saved`;updateTimer();
+  document.querySelector('#streak-count').textContent=state.streak;
 }
 
 setInterval(()=>{if(!storyModal.hidden&&!document.hidden){state.seconds+=1;updateTimer();if(state.seconds%5===0)save()}},1000);
@@ -60,9 +66,9 @@ function showPanel(type){
   if(type==='words'){
     panel.innerHTML=`<p class="eyebrow">Your reading toolkit</p><h2 id="panel-title">My tricky words</h2><p class="panel-intro">Tap a word to hear it again. Every word you practise makes your reading power stronger!</p>${state.words.length?`<div class="word-list">${state.words.map(w=>`<div class="saved-word"><span>🔤</span><div><strong>${w}</strong><small>${phonics[w]}</small></div><button data-speak="${w}">🔊 Hear</button></div>`).join('')}</div>`:'<div class="empty-state">📖<br>Tap a highlighted word inside a story and it will appear here.</div>'}`;panel.querySelectorAll('[data-speak]').forEach(b=>b.addEventListener('click',()=>speak(b.dataset.speak,true)));
   }else if(type==='rewards'){
-    const rewards=[['🍬','A shop treat',80],['💰','Pocket money bonus',150],['🎬','Choose family film',200],...state.rewards.map(r=>['🎁',r,100])];panel.innerHTML=`<p class="eyebrow">Stars become smiles</p><h2 id="panel-title">My rewards</h2><p class="panel-intro">You have <strong>${state.stars} stars</strong>. Ask a grown-up before claiming a real-world reward.</p><div class="reward-list">${rewards.map(([icon,name,cost])=>`<div class="reward-row"><span>${icon}</span><div><strong>${name}</strong><small>${cost} stars</small></div><button ${state.stars<cost?'disabled':''}>${state.stars>=cost?'Ask grown-up':'Keep reading'}</button></div>`).join('')}</div>`;
+    const rewards=[['🍬','A shop treat',80],['💰','Pocket money bonus',150],['🎬','Choose family film',200],...state.rewards.map(r=>['🎁',r.name,r.cost])];panel.innerHTML=`<p class="eyebrow">Stars become smiles</p><h2 id="panel-title">My rewards</h2><p class="panel-intro">You have <strong>${state.stars} stars</strong>. Ask a grown-up before claiming a real-world reward.</p><div class="reward-list">${rewards.map(([icon,name,cost])=>`<div class="reward-row"><span>${icon}</span><div><strong>${name}</strong><small>${cost} stars</small></div><button ${state.stars<cost?'disabled':''}>${state.stars>=cost?'Ask grown-up':'Keep reading'}</button></div>`).join('')}</div>`;
   }else{
-    panel.innerHTML=`<p class="eyebrow">Choose your style</p><h2 id="panel-title">My profile</h2><p class="panel-intro">Pick the kind of reading world you would like to see.</p>${profileChooser()}<p class="eyebrow">Grown-up view</p><h2>MeeHee's progress</h2><div class="parent-code"><small>Progress proof code</small><strong>ME-${state.stories+24}R</strong><small>Changes as stories are completed</small></div><div class="stat-grid"><div class="stat"><strong>${state.stories}</strong><small>stories finished</small></div><div class="stat"><strong>${formatTime(state.seconds)}</strong><small>reading today</small></div><div class="stat"><strong>${state.words.length}</strong><small>words practised</small></div></div><p class="timer-note">Reading time counts only while a story is open and visible.</p><form class="custom-reward"><input required maxlength="40" aria-label="Custom reward" placeholder="Add a family reward…"><button>Add reward</button></form>`;bindProfileButtons();panel.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const input=e.currentTarget.querySelector('input');state.rewards.push(input.value);save();showPanel('rewards')});
+    panel.innerHTML=`<p class="eyebrow">Choose your style</p><h2 id="panel-title">My profile</h2><p class="panel-intro">Pick the kind of reading world you would like to see.</p>${profileChooser()}<p class="eyebrow">Grown-up view</p><h2>MeeHee's progress</h2><div class="parent-code"><small>Progress proof code</small><strong>ME-${state.stories+24}R</strong><small>Changes as stories are completed</small></div><div class="stat-grid"><div class="stat"><strong>${state.stories}</strong><small>stories finished</small></div><div class="stat"><strong>${formatTime(state.seconds)}</strong><small>reading today</small></div><div class="stat"><strong>${state.words.length}</strong><small>words practised</small></div></div><p class="timer-note">Reading time counts only while a story is open and visible. A 10-minute day keeps the streak going.</p><label class="form-label" for="reward-name">Add a family reward</label><form class="custom-reward"><input id="reward-name" required maxlength="40" aria-label="Custom reward" placeholder="e.g. Choose Friday's dinner"><input class="reward-cost" required type="number" min="1" max="9999" step="1" aria-label="Stars needed" placeholder="Stars needed"><button>Add reward</button></form><small class="reward-help">Choose any value from 1 to 9,999 stars.</small>`;bindProfileButtons();panel.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const name=e.currentTarget.querySelector('#reward-name').value.trim();const cost=Number(e.currentTarget.querySelector('.reward-cost').value);if(!name||!Number.isInteger(cost)||cost<1||cost>9999)return;state.rewards.push({name,cost});save();showPanel('rewards')});
   }openModal(panelModal)
 }
 document.querySelectorAll('[data-open]').forEach(button=>button.addEventListener('click',()=>showPanel(button.dataset.open)));document.querySelector('.avatar').addEventListener('click',()=>showPanel('parents'));applyProfile(state.profile);
