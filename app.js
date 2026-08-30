@@ -91,6 +91,7 @@ function dateKey(date=new Date()){return `${date.getFullYear()}-${String(date.ge
 const today=dateKey();const yesterdayDate=new Date();yesterdayDate.setDate(yesterdayDate.getDate()-1);const yesterday=dateKey(yesterdayDate);
 const storedDay=localStorage.getItem('meehee-reading-day');
 const storedGameDay=localStorage.getItem('meehee-game-day');
+const storedStoryDay=localStorage.getItem('meehee-story-reward-day');
 const savedRewards=JSON.parse(localStorage.getItem('meehee-rewards')||'[]').map(reward=>typeof reward==='string'?{name:reward,cost:100}:reward);
 const lastCompleted=localStorage.getItem('meehee-last-goal-date')||'';const savedStreak=Number(localStorage.getItem('meehee-streak')||0);
 const state={
@@ -99,6 +100,7 @@ const state={
   rewarded:storedDay===today&&localStorage.getItem('meehee-mission-rewarded')==='yes', rewards:savedRewards,
   hiddenRewards:JSON.parse(localStorage.getItem('meehee-hidden-rewards')||'[]'),
   gameStars:storedGameDay===today?Number(localStorage.getItem('meehee-game-stars')||0):0,
+  completedStories:storedStoryDay===today?JSON.parse(localStorage.getItem('meehee-completed-stories')||'[]'):[],
   streak:lastCompleted===today||lastCompleted===yesterday?savedStreak:0,lastCompleted,
   profile:localStorage.getItem('meehee-profile')||'princess', current:null
 };
@@ -116,10 +118,14 @@ function save(){
   localStorage.setItem('meehee-reading-day',today);localStorage.setItem('meehee-reading-seconds',state.seconds);localStorage.setItem('meehee-mission-rewarded',state.rewarded?'yes':'no');
   localStorage.setItem('meehee-rewards',JSON.stringify(state.rewards));localStorage.setItem('meehee-hidden-rewards',JSON.stringify(state.hiddenRewards));localStorage.setItem('meehee-profile',state.profile);localStorage.setItem('meehee-streak',state.streak);localStorage.setItem('meehee-last-goal-date',state.lastCompleted);
   localStorage.setItem('meehee-game-day',today);localStorage.setItem('meehee-game-stars',state.gameStars);
+  localStorage.setItem('meehee-story-reward-day',today);localStorage.setItem('meehee-completed-stories',JSON.stringify(state.completedStories));
   document.querySelector('#star-count').textContent=state.stars;document.querySelector('#reader-stars').textContent=state.stars;document.querySelector('#word-summary').textContent=`${state.words.length} word${state.words.length===1?'':'s'} saved`;updateTimer();
   document.querySelector('#streak-count').textContent=state.streak;
   document.querySelector('#game-stars').textContent=state.gameStars;
+  updateStoryTicks();
 }
+
+function updateStoryTicks(){document.querySelectorAll('.story-card').forEach(card=>{const complete=state.completedStories.includes(card.dataset.story);let tick=card.querySelector('.story-complete');if(complete&&!tick){tick=document.createElement('span');tick.className='story-complete';tick.textContent='✓';tick.setAttribute('aria-label','Stars earned from this story today');card.appendChild(tick)}else if(!complete&&tick)tick.remove()})}
 
 setInterval(()=>{if(!storyModal.hidden&&!document.hidden){state.seconds+=1;updateTimer();if(state.seconds%5===0)save()}},1000);
 window.addEventListener('beforeunload',save);document.addEventListener('visibilitychange',()=>{if(document.hidden)save()});
@@ -138,8 +144,8 @@ function renderStoryPage(){const story=stories[state.current],page=storyRun.page
 function startStoryQuestions(){storyRun.answers=[];storyRun.score=0;renderStoryQuestion(0)}
 function renderStoryQuestion(index){const story=stories[state.current],question=story.questions[index],mixedAnswers=shuffle(question.options);document.querySelector('#story-theme').textContent=`Memory check · Question ${index+1} of 5`;storyText.innerHTML=`<strong>${question.text}</strong>`;choices.innerHTML=`<button class="choice finish" id="hear-question">🔊 Read question aloud</button>${mixedAnswers.map(option=>`<button class="choice" data-answer="${option.replaceAll('"','&quot;')}">${option}</button>`).join('')}<p id="question-feedback" aria-live="polite"></p>`;document.querySelector('#hear-question').addEventListener('click',()=>speak(question.text,true));choices.querySelectorAll('[data-answer]').forEach(button=>button.addEventListener('click',()=>answerStoryQuestion(index,button.dataset.answer)))}
 function answerStoryQuestion(index,answer){const question=stories[state.current].questions[index],correct=answer===question.answer;if(correct)storyRun.score++;storyRun.answers.push(answer);choices.querySelectorAll('button').forEach(button=>button.disabled=true);document.querySelector('#question-feedback').textContent=correct?'Correct! Brilliant remembering. ⭐':`Good try. The answer was “${question.answer}”.`;setTimeout(()=>index<4?renderStoryQuestion(index+1):finishStoryQuestions(),900)}
-function finishStoryQuestions(){if(storyRun.score>=4){storyText.innerHTML=`<strong>Fantastic! You scored ${storyRun.score} out of 5.</strong>`;choices.innerHTML='<p>You remembered the story and earned your reward.</p><button class="choice finish" id="collect-story-stars">Collect 20 stars ⭐</button>';document.querySelector('#collect-story-stars').addEventListener('click',finishStory)}else{storyText.innerHTML=`<strong>You scored ${storyRun.score} out of 5.</strong>`;choices.innerHTML='<p>You need 4 correct answers. Read the story again, then have another try — you can do it!</p><button class="choice finish" id="reread-story">Read the story again 📖</button>';document.querySelector('#reread-story').addEventListener('click',()=>{storyRun={page:1,choice:null,nextIntro:'',answers:[],score:0};renderStoryPage()})}}
-function finishStory(){state.stars+=20;state.stories+=1;save();closeModals();showPanel('words')}
+function finishStoryQuestions(){if(storyRun.score>=4){const earnedToday=state.completedStories.includes(state.current);storyText.innerHTML=`<strong>Fantastic! You scored ${storyRun.score} out of 5.</strong>`;choices.innerHTML=earnedToday?'<p>You already earned this story’s stars today, but brilliant rereading!</p><button class="choice finish" id="collect-story-stars">Finish story ✓</button>':'<p>You remembered the story and earned your reward.</p><button class="choice finish" id="collect-story-stars">Collect 20 stars ⭐</button>';document.querySelector('#collect-story-stars').addEventListener('click',finishStory)}else{storyText.innerHTML=`<strong>You scored ${storyRun.score} out of 5.</strong>`;choices.innerHTML='<p>You need 4 correct answers. Read the story again, then have another try — you can do it!</p><button class="choice finish" id="reread-story">Read the story again 📖</button>';document.querySelector('#reread-story').addEventListener('click',()=>{storyRun={page:1,choice:null,nextIntro:'',answers:[],score:0};renderStoryPage()})}}
+function finishStory(){if(!state.completedStories.includes(state.current)){state.stars+=20;state.completedStories.push(state.current)}state.stories+=1;save();closeModals();showPanel('words')}
 document.querySelectorAll('.story-card').forEach(card=>card.querySelector('button').addEventListener('click',()=>openStory(card.dataset.story)));document.querySelector('#start-story').addEventListener('click',()=>document.querySelector('.stories').scrollIntoView({behavior:'smooth'}));
 
 function applyProfile(profile){
